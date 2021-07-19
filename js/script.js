@@ -1,4 +1,3 @@
-/* eslint-disable no-inner-declarations */
 {
   'use strict';
   /*document.getElementById('test-button').addEventListener('click', function(){
@@ -8,7 +7,7 @@
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles';
-    optArticleTagsSelector = '.post-tags .list';
+  optArticleTagsSelector = '.post-tags .list';
 
   const titleClickHandler = function (event) {
     event.preventDefault();
@@ -78,7 +77,7 @@
 
   generateTitleLinks();
   const links = document.querySelectorAll('.titles a');
-  console.log('links', links);
+  //console.log('links', links);
 
   for (let link of links) {
     link.addEventListener('click', titleClickHandler);
@@ -88,31 +87,44 @@
     document.getElementById('messages').innerHTML = '';
   }*/
 
-  function generateTags(){
+  function generateTags() {
     /* find all articles */
-  
+    const articles = document.querySelectorAll(optArticleSelector);
+    //console.log('arcitles', articles);
+
     /* START LOOP: for every article: */
-  
+    for (let article of articles) {
+
       /* find tags wrapper */
-  
+      // eslint-disable-next-line no-undef
+      const tagsWrapper = article.querySelector(optArticleTagsSelector);
+
+      //console.log ('tagsWrapper', tagsWrapper);
+
       /* make html variable with empty string */
-  
+      let html = '';
+
       /* get tags from data-tags attribute */
-  
+      const articleTags = article.getAttribute('data-tags');
+      //console.log('articleTags', articleTags);
+
       /* split tags into array */
-  
+      const articleTagsArray = articleTags.split(' ');
+      //console.log('articleTagsArray', articleTagsArray);
+
       /* START LOOP: for each tag */
-  
+
         /* generate HTML of the link */
-  
+
         /* add generated code to html variable */
-  
+
       /* END LOOP: for each tag */
-  
+
       /* insert HTML of all the links into the tags wrapper */
-  
+
+    }
     /* END LOOP: for every article: */
   }
-  
+
   generateTags();
 }
