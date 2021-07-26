@@ -6,14 +6,14 @@
     });*/
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
-    optTitleListSelector = '.titles';
-  optArticleTagsSelector = '.post-tags .list';
+    optTitleListSelector = '.titles',
+    optArticleTagsSelector = '.post-tags .list';
 
   const titleClickHandler = function (event) {
     event.preventDefault();
     const clickedElement = this;
-    console.log('Link was clicked!');
-    console.log(event);
+    //console.log('Link was clicked!');
+    //console.log(event);
 
     /* [DONE] remove class 'active' for all arcitle links */
     const activeLinks = document.querySelectorAll('.titles a.active');
@@ -23,7 +23,7 @@
     }
 
     /* add class 'active' to the clicked link*/
-    console.log('clickedElement:', clickedElement);
+    //console.log('clickedElement:', clickedElement);
     clickedElement.classList.add('active');
 
     /* [DONE] remove class 'active' from all arcitles */
@@ -35,11 +35,11 @@
 
     /* get 'href' attribute from the clicked link */
     const articleSelector = clickedElement.getAttribute('href');
-    console.log('articleSelector', articleSelector);
+    //console.log('articleSelector', articleSelector);
 
     /* find the correct article using the selector (value of 'href' attribute)*/
     const targetArticle = document.querySelector(articleSelector);
-    console.log('targetArticle', targetArticle);
+    //console.log('targetArticle', targetArticle);
 
     /* add class 'active' to the correst arcitle */
     targetArticle.classList.add('active');
@@ -96,7 +96,6 @@
     for (let article of articles) {
 
       /* find tags wrapper */
-      // eslint-disable-next-line no-undef
       const tagsWrapper = article.querySelector(optArticleTagsSelector);
 
       //console.log ('tagsWrapper', tagsWrapper);
@@ -113,18 +112,23 @@
       //console.log('articleTagsArray', articleTagsArray);
 
       /* START LOOP: for each tag */
-
+      for (let tag of articleTagsArray) {
+        //console.log('tag', tag);
         /* generate HTML of the link */
-
+        let linkHTMLtag = '<li><a href="#tag-'+ tag +'">'+ tag +'</a></li>';
+        console.log('linkHTMLtag', linkHTMLtag);
         /* add generated code to html variable */
-
+        html = html + linkHTMLtag;
+      
       /* END LOOP: for each tag */
-
+      }
       /* insert HTML of all the links into the tags wrapper */
+      tagsWrapper.innerHTML = html;
+      //console.log('html', html);
 
+      /* END LOOP: for every article: */
     }
-    /* END LOOP: for every article: */
-  }
 
-  generateTags();
+    generateTags();
+  }
 }
