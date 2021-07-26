@@ -115,12 +115,12 @@
       for (let tag of articleTagsArray) {
         //console.log('tag', tag);
         /* generate HTML of the link */
-        let linkHTMLtag = '<li><a href="#tag-'+ tag +'">'+ tag +'</a></li>';
+        let linkHTMLtag = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
         console.log('linkHTMLtag', linkHTMLtag);
         /* add generated code to html variable */
         html = html + linkHTMLtag;
-      
-      /* END LOOP: for each tag */
+
+        /* END LOOP: for each tag */
       }
       /* insert HTML of all the links into the tags wrapper */
       tagsWrapper.innerHTML = html;
@@ -128,7 +128,6 @@
 
       /* END LOOP: for every article: */
     }
-
-    generateTags();
   }
+  generateTags();
 }
