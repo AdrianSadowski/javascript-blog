@@ -74,15 +74,15 @@
     }
     titleList.innerHTML = html;
     //console.log('html', html);
-  }
+    const links = document.querySelectorAll('.titles a');
+    //console.log('links', links);
 
+    for (let link of links) {
+      link.addEventListener('click', titleClickHandler);
+    }
+  }
   generateTitleLinks();
-  const links = document.querySelectorAll('.titles a');
-  //console.log('links', links);
 
-  for (let link of links) {
-    link.addEventListener('click', titleClickHandler);
-  }
 
   /*function clearMessages() {
     document.getElementById('messages').innerHTML = '';
@@ -155,7 +155,7 @@
       /* remove class active */
       activeTag.classList.remove('active');
 
-    /* END LOOP: for each active tag link */
+      /* END LOOP: for each active tag link */
     }
 
     /* find all tag links with "href" attribute equal to the "href" constant */
@@ -165,7 +165,7 @@
       /* add class active */
       tagLink.classList.add('active');
 
-    /* END LOOP: for each found tag link */
+      /* END LOOP: for each found tag link */
     }
     /* execute function "generateTitleLinks" with article selector as argument */
     generateTitleLinks('[data-tags~="' + tag + '"]');
@@ -180,19 +180,19 @@
 
       /* add tagClickHandles as event listener for that link */
       tagLink.addEventListener('click', tagClickHandler);
-    /* END LOOP: for each link */
+      /* END LOOP: for each link */
     }
 
   }
   addClickListenersToTags();
 
-  function generateAuthors(){
+  function generateAuthors() {
     /* find all articles*/
     const articles = document.querySelectorAll(optArticleSelector);
     //console.log('authors', articles);
 
     /* START LOOP: for every article: */
-    for (let article of articles){
+    for (let article of articles) {
 
       /*find author wrapper*/
       const authorWrapper = article.querySelector(optArticleAuthorSelector);
@@ -203,19 +203,19 @@
       html = html + linkHTMLauthor;
       //console.log('html', html);
 
-      authorWrapper.innerHTML= html;
+      authorWrapper.innerHTML = html;
       //console.log(authorWrapper);
     }
   }
   generateAuthors();
 
-  function authorClickHandler(event){
+  function authorClickHandler(event) {
     event.preventDefault();
     const clickedElement = this;
     const href = clickedElement.getAttribute('href');
     const author = href.replace('#author-', '');
     const activeAuthors = document.querySelectorAll('a.active[href^="#author-"]');
-    for (let activeAuthor of activeAuthors){
+    for (let activeAuthor of activeAuthors) {
       activeAuthor.classList.remove('active');
     }
     const authorLinks = document.querySelectorAll('a.active[href^="#author-"]');
@@ -224,7 +224,7 @@
     }
     generateTitleLinks('[data-author="' + author + '"]');
   }
-  function addClickListenersToAuthors(){
+  function addClickListenersToAuthors() {
     const authorLinks = document.querySelectorAll('a[href^="#author-"]');
     for (let authorLink of authorLinks) {
       authorLink.addEventListener('click', authorClickHandler);
