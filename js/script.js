@@ -12,9 +12,7 @@
     optTagsListSelector = '.tag .list',
     optCloudClassCount = '5',
     optCloudClassPrefix = 'tag-size-',
-    optAuthorsListSelector = '.author .list',
-    optCloudClassCountAuthor = '5',
-    optCloudClassPrefixAuthor = 'author-size-';
+    optAuthorsListSelector = '.author .list';
 
 
   const titleClickHandler = function (event) {
@@ -262,71 +260,18 @@
   }
   addClickListenersToTags();
 
-  /*[NEW]*/
-  function calculateAuthorClass(authors) {
-    const paramsAuthor = {
-      max: 0,
-      min: 999999,
-    };
-    for(let author in authors) {
-      console.log(author + 'is used in ' + authors[author] + ' times');
-      if(authors[author] > paramsAuthor.max){
-        paramsAuthor.max = [authors.author];
-      }
-      if(authors[author] < paramsAuthor.min){
-        paramsAuthor.min = authors[author];
-      }
-    }
-    return paramsAuthor;
-  }
-  calculateAuthorClass();
-
-  function calculateAuthorParams(countAuthor, paramsAuthor){
-    const normalizedCount = countAuthor - paramsAuthor.min;
-    const normalizedMax = paramsAuthor.max - paramsAuthor.min;
-    const precentage = normalizedCount / normalizedMax;
-    const classNumber = Math.floor( precentage * ( optCloudClassCountAuthor -1) + 1);
-    return optCloudClassPrefixAuthor + classNumber;
-  }
-
   /* [END NEW] */
   function generateAuthors() {
-    /* [NEW] creata a new variable allAuthors with an empty object*/
-    let allAuthors = {};
-
-    /* find all articles*/
     const articles = document.querySelectorAll(optArticleSelector);
-    //console.log('authors', articles);
-
-    /* START LOOP: for every article: */
-    for (let article of articles) {
-
-      /*find author wrapper*/
-      const authorWrapper = article.querySelector(optArticleAuthorSelector);
-      //console.log(authorWrapper);
-      let html = ' ';
-      const articleAuthors = article.getAttribute('data-author');
-      let linkHTMLauthor = 'by <a href="#author-' + articleAuthors + '">' + articleAuthors + '</a> ';
-      html = html + linkHTMLauthor;
-
-      //console.log('html', html);
-      if(!allAuthors[article]){
-        allAuthors[article] = 1;
-      } else {
-        allAuthors[article]++;
-      }
-      authorWrapper.innerHTML = html;
-      //console.log(authorWrapper);
+    for (let article of articles){
+      const authorsWrapper = article.querySelector(optArticleAuthorSelector);
+      let html = '';
+      const articleAuthor = article.getAttribute('data-author');
+      const linkHTML = '<li><a href="#author-' + articleAuthor + '">' + articleAuthor + '</a></li>';
+      html = html + linkHTML;
+      authorsWrapper.innerHTML = html;
     }
-    /* [NEW] find list of authors in right column*/
-    const authorList = document.querySelectorAll('.authors');
-    let allAuthorsHTML = '';
-    const authorParams = calculateAuthorParams(allAuthors);
-    for (let author in allAuthors){
-      const authorLinkHTML = '<li><a class="'+ calculateAuthorClass(allAuthors[author], authorParams) +'" href="#author-' + author + '">' + author + '</a>'  + ' </li> ';
-      allAuthorsHTML += authorLinkHTML;
-    }
-    authorList.innerHTML = allAuthorsHTML;
+
   }
   generateAuthors();
 
