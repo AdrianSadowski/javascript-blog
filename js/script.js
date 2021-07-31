@@ -1,9 +1,9 @@
 {
   'use strict';
-  /*document.getElementById('test-button').addEventListener('click', function(){
-      const links = document.querySelectorAll('.titles a');
-      console.log('links:', links);
-    });*/
+  const templates = {
+    articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML)
+  };
+
   const opt = {
     articleSelector: '.post',
     TitleSelector: '.post-title',
@@ -80,7 +80,12 @@
       /* get the title from the title element */
 
       /* create HTML of the link */
-      const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+      //const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+      const linkHTMLData = {
+        id: articleId, 
+        title: articleTitle
+      };
+      const linkHTML = templates.articleLink(linkHTMLData);
       //console.log('linkHTML', linkHTML);
 
       /* insert link into titleList */
