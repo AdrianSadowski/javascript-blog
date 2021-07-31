@@ -1,7 +1,11 @@
 {
   'use strict';
   const templates = {
-    articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML)
+    articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+    tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+    authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+    tagCloudLink: Handlebars.compile(document.querySelector('#template-cloud-link').innerHTML),
+
   };
 
   const opt = {
@@ -169,7 +173,12 @@
         //console.log('tag', tag);
 
         /* generate HTML of the link */
-        let linkHTMLtag = '<li><a href="#tag-' + tag + '">' + tag + '</a></li> ';
+        //let linkHTMLtag = '<li><a href="#tag-' + tag + '">' + tag + '</a></li> ';
+        const linkHTMLData = {
+          id: tag,
+          title: tag
+        };
+        const linkHTMLtag = templates.tagLink(linkHTMLData);
         //console.log('linkHTMLtag', linkHTMLtag);
 
         /* add generated code to html variable */
@@ -196,7 +205,8 @@
     const tagList = document.querySelector(opt.TagsListSelector);
 
     /* [NEW]  create variable for all links HTML code */
-    let allTagsHTML = '';
+    //let allTagsHTML = '';
+    const allTagsData = {tags:[]};
     const tagParams = calculateTagsParams(allTags);
     //console.log('tagParams:', tagParams);
 
@@ -207,14 +217,20 @@
       /* [NEW] generate code of a link andd add it to allTagsHTML */
       const tagLinkHTML = '<li><a class="'+ calculateTagClass(allTags[tag], tagParams) +'" href="#tag-' + tag + '">' + tag + '</a>'  + ' </li> ';
       
-      allTagsHTML += tagLinkHTML;
+      //allTagsHTML += tagLinkHTML;
+      allTagsData.tags.push({
+        tag: tag,
+        count: allTags[tag],
+        className: calculateTagClass(allTags[tag], tagParams)
+      });
       //console.log('allTagsHTML:', allTagsHTML);
       //console.log('calculateTagClass', calculateTagClass);
     }
     /* [NEW] END LOOP: for each tag in allTags: */
   
     /* [NEW] add HTML for alTagsHTML to tagList */
-    tagList.innerHTML = allTagsHTML;
+    //tagList.innerHTML = allTagsHTML;
+    tagList.innerHTML = templates.tagCloudLink(allTagsData);
 
 
   }
@@ -282,7 +298,11 @@
       const authorsWrapper = article.querySelector(opt.ArticleAuthorSelector);
       let html = '';
       const articleAuthor = article.getAttribute('data-author');
-      const linkHTML = '<li><a href="#author-' + articleAuthor + '">' + articleAuthor + '</a></li>';
+      //const linkHTML = '<li><a href="#author-' + articleAuthor + '">' + articleAuthor + '</a></li>';
+      const linkHTMLData = {
+        author: articleAuthor,
+      };
+      const linkHTML = templates.authorLink(linkHTMLData);
       html = html + linkHTML;
       if(!allAuthors[articleAuthor]) {
         allAuthors[articleAuthor] = 1;
