@@ -166,8 +166,7 @@
         /* generate HTML of the link */
         //let linkHTMLtag = '<li><a href="#tag-' + tag + '">' + tag + '</a></li> ';
         const linkHTMLData = {
-          id: tag,
-          title: tag
+          tag: tag,
         };
         const linkHTMLtag = templates.tagLink(linkHTMLData);
         //console.log('linkHTMLtag', linkHTMLtag);
