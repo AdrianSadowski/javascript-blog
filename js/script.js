@@ -172,7 +172,7 @@
         //console.log('linkHTMLtag', linkHTMLtag);
 
         /* add generated code to html variable */
-        html = html + linkHTMLtag;
+        html += linkHTMLtag;
 
         /* [NEW] check if this link is NOT already in allTags */
         if (!allTags[tag]) {
@@ -240,7 +240,7 @@
     const tag = href.replace('#tag-', '');
 
     /* find all tag links with class active */
-    const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
+    const activeTags = document.querySelectorAll(href);
     //console.log(activeTags);
 
     /* START LOOP: for each active tag link */
@@ -253,7 +253,7 @@
     }
 
     /* find all tag links with "href" attribute equal to the "href" constant */
-    const tagLinks = document.querySelectorAll('a.active[href^="#tag-"]');
+    const tagLinks = document.querySelectorAll(href);
     /* START LOOP: for each found tag link */
     for (let tagLink of tagLinks) {
       /* add class active */
@@ -293,7 +293,7 @@
         author: articleAuthor,
       };
       const linkHTML = templates.authorLink(linkHTMLData);
-      html = html + linkHTML;
+      html += linkHTML;
       if (!allAuthors[articleAuthor]) {
         allAuthors[articleAuthor] = 1;
       } else {
@@ -322,11 +322,11 @@
     const clickedElement = this;
     const href = clickedElement.getAttribute('href');
     const author = href.replace('#author-', '');
-    const activeAuthors = document.querySelectorAll('a.active[href^="#author-"]');
+    const activeAuthors = document.querySelectorAll(href);
     for (let activeAuthor of activeAuthors) {
       activeAuthor.classList.remove('active');
     }
-    const authorLinks = document.querySelectorAll('a.active[href^="#author-"]');
+    const authorLinks = document.querySelectorAll(href);
     for (let authorLink of authorLinks) {
       authorLink.classList.add('active');
     }
